@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="search">
+        <h2>Find</h2>
+        <form action="/search" method="get">
+            <input type="text" name="query">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <div class="add">
+        <h2>Add Car</h2>
+        <form action="/add" method="get">
+            {% for key in car_props.keys() %}
+                <input type="text" name="{{ key }}" placeholder="{{ key }}">
+            {% endfor %} 
+            <input type="submit" value="Add">
+        </form>
+    </div>
+    <div class="cars">
+        <h2>Cars</h2>
+        {% for car in cars %}
+        <div class="car">
+            {% for key, value in car.__dict__.items() %}
+            <div class="{{ key }}">{{ value }}</div>
+            {% endfor %}
+            <div class="delete"><a href="/delete?name={{ car.number }}">delete</a></div>
+            <div class="update"><a href="/update?name={{ car.name }}&phone={{ car.phone }}">update</a></div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
